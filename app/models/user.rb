@@ -17,13 +17,14 @@
 class User < ApplicationRecord
   # associations
   belongs_to :sex
-  has_many :interested_ins
+  has_many :interested_ins, dependent: :destroy
   has_many :interested_sexes, through: :interested_ins, source: :sex
-  has_many :looking_fors
+  has_many :looking_fors, dependent: :destroy
   has_many :looking_for_outcomes, through: :looking_fors, source: :outcome
 
   # validations
   validates :email, :password, :session_token, :age, :location, presence: true
 
+  # auth
   has_secure_password
 end
