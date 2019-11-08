@@ -53,6 +53,7 @@ class UsersController < ApplicationController
       :age,
       :location,
       :sex_id,
+      :bio,
       :interested_sex_ids => [],
       :looking_for_outcome_ids => []
     )

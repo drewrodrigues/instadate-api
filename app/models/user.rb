@@ -6,12 +6,13 @@
 #  admin           :boolean          default("0")
 #  email           :string(255)      not null
 #  password_digest :string(255)      not null
-#  session_token   :string(255)      not null
+#  session_token   :string(255)
 #  age             :integer          not null
 #  location        :string(255)      not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  sex_id          :integer          not null
+#  bio             :text(65535)      not null
 #
 
 class User < ApplicationRecord
@@ -23,7 +24,7 @@ class User < ApplicationRecord
   has_many :looking_for_outcomes, through: :looking_fors, source: :outcome
 
   # validations
-  validates :email, :age, :location, presence: true
+  validates :email, :age, :bio, :location, presence: true
   validates :email, uniqueness: { case_sensitive: true }
   validate :interested_sexes_selected
   validate :looking_for_outcomes_selected
