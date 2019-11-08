@@ -23,9 +23,21 @@ class User < ApplicationRecord
   has_many :looking_for_outcomes, through: :looking_fors, source: :outcome
 
   # validations
-  validates :email, :password, :age, :location, presence: true
+  validates :email, :age, :location, presence: true
   validates :email, uniqueness: { case_sensitive: true }
+  validate :interested_sexes_selected
+  validate :looking_for_outcomes_selected
 
   # auth
   has_secure_password
+
+  private
+
+  def interested_sexes_selected
+    errors.add(:interests, 'must be selected') if interested_sexes.empty?
+  end
+
+  def looking_for_outcomes_selected
+    errors.add(:looking_for, 'must be selected') if looking_for_outcomes.empty?
+  end
 end
