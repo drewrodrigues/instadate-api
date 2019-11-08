@@ -23,7 +23,8 @@ class User < ApplicationRecord
   has_many :looking_for_outcomes, through: :looking_fors, source: :outcome
 
   # validations
-  validates :email, :password, :session_token, :age, :location, presence: true
+  validates :email, :password, :age, :location, presence: true
+  validates :email, uniqueness: { case_sensitive: true }
 
   # auth
   has_secure_password
