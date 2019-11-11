@@ -52,10 +52,11 @@ class UsersController < ApplicationController
       :password,
       :age,
       :location,
-      :sex_id,
+      :sex,
       :bio,
-      :interested_sex_ids => [],
-      :looking_for_outcome_ids => []
+      :interested_in,
+      :outcome,
+      :name
     )
   end
 end

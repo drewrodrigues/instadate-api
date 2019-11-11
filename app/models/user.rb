@@ -6,39 +6,49 @@
 #  admin           :boolean          default("0")
 #  email           :string(255)      not null
 #  password_digest :string(255)      not null
-#  session_token   :string(255)
+#  session_token   :text(65535)      not null
 #  age             :integer          not null
 #  location        :string(255)      not null
+#  sex             :string(255)      not null
+#  interested_in   :string(255)      not null
+#  outcome         :string(255)      not null
+#  bio             :text(65535)      not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  sex_id          :integer          not null
-#  bio             :text(65535)      not null
 #
 
 class User < ApplicationRecord
-  # associations
-  belongs_to :sex
-  has_many :interested_ins, dependent: :destroy
-  has_many :interested_sexes, through: :interested_ins, source: :sex
-  has_many :looking_fors, dependent: :destroy
-  has_many :looking_for_outcomes, through: :looking_fors, source: :outcome
+  # callbacks
+  after_initialize :set_session_token
 
   # validations
-  validates :email, :age, :bio, :location, presence: true
+  validates :email,
+            :age,
+            :bio,
+            :location,
+            :session_token,
+            :outcome,
+            :interested_in,
+            :sex,
+            :name,
+            presence: true
   validates :email, uniqueness: { case_sensitive: true }
-  validate :interested_sexes_selected
-  validate :looking_for_outcomes_selected
 
   # auth
   has_secure_password
 
-  private
-
-  def interested_sexes_selected
-    errors.add(:interests, 'must be selected') if interested_sexes.empty?
+  def authenticate_password(password)
+    reset_session_token! if super(password)
   end
 
-  def looking_for_outcomes_selected
-    errors.add(:looking_for, 'must be selected') if looking_for_outcomes.empty?
+  private
+
+  def set_session_token
+    self.session_token ||= SecureRandom.base64
+  end
+
+  def reset_session_token!
+    set_session_token
+    save
   end
 end
