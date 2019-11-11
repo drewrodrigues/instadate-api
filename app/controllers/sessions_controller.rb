@@ -4,17 +4,13 @@ class SessionsController < ApplicationController
     user = User.find_by(email: email)
 
     if user&.authenticate_password(password)
+      session[:session_token] = user.session_token
       render json: user
     else
       render json: {
         errors: ['Failed to authenticate']
       }, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /sessions
-  def destroy
-    # TODO: implement
   end
 
   private
