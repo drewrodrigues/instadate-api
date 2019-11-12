@@ -5,7 +5,7 @@ ruby '2.5.1'
 
 gem 'rails', '~> 6.0.0'
 gem 'annotate', '~> 2.6'
-gem 'mysql2', '>= 0.4.4'
+gem "pg", "~> 1.1"
 gem 'puma', '~> 3.11'
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production

@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_11_08_035516) do
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
     t.string "email", null: false
     t.string "password_digest", null: false
