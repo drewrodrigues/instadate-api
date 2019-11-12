@@ -19,9 +19,10 @@
 
 class User < ApplicationRecord
   # callbacks
-  after_initialize :set_session_token
+  after_initialize :ensure_session_token
 
   # validations
+  # - presence
   validates :email,
             :age,
             :bio,
@@ -32,19 +33,29 @@ class User < ApplicationRecord
             :sex,
             :name,
             presence: true
-  validates :email, uniqueness: { case_sensitive: true }
+  # - inclusion
+  validates :age, inclusion: 18..100
+  validates :interested_in, inclusion: %w[men women both]
+  validates :sex, inclusion: %w[male female]
+  # - uniqueness
+  validates :email, uniqueness: { case_sensitive: false }
 
   # auth
   has_secure_password
 
   def authenticate_password(password)
     reset_session_token! if super(password)
+    self
   end
 
   private
 
-  def set_session_token
+  def ensure_session_token
     self.session_token ||= SecureRandom.base64
+  end
+
+  def set_session_token
+    self.session_token = SecureRandom.base64
   end
 
   def reset_session_token!
