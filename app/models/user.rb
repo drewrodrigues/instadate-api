@@ -18,6 +18,13 @@
 #
 
 class User < ApplicationRecord
+  # class methods
+  def self.valid_cities
+    @@valid_cities ||= CS.states(:us).keys.flat_map do |state|
+      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}"}
+    end
+  end
+
   # callbacks
   after_initialize :ensure_session_token
 
@@ -68,12 +75,6 @@ class User < ApplicationRecord
   end
 
   def valid_location
-    errors.add(:location, 'is invalid') unless cities.include?(location)
-  end
-
-  def cities
-    CS.states(:us).keys.flat_map do |state|
-      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}"}
-    end
+    errors.add(:location, 'is invalid') unless User.valid_cities.include?(location)
   end
 end
