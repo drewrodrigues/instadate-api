@@ -71,3 +71,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# for #fixture_file_upload method in factories
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end

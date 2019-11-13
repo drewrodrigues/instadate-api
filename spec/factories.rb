@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :picture do
+    file { fixture_file_upload(Rails.root.join('spec', 'support', 'assets', 'avatar.jpg'), 'image/jpg') }
+    verified { false }
+  end
+
   factory :user do
     admin { false }
     email { 'drew@example.com' }
@@ -7,7 +12,7 @@ FactoryBot.define do
     session_token { 'zJ94Hk5VqRpL9PH4xaqo5w==' }
     age { 24 }
     location { 'San Francisco, CA' }
-    sex { 'male' }
+    sex { 'man' }
     interested_in { 'women' }
     outcome { 'dating' }
     bio { 'Cool bio goes here' }

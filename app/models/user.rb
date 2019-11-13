@@ -21,8 +21,8 @@ class User < ApplicationRecord
   # callbacks
   after_initialize :ensure_session_token
 
-  # attachments
-  has_one_attached :picture
+  # associations
+  has_one :picture, dependent: :destroy
 
   # validations
   # - presence
