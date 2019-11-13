@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  resources :pictures, only: [:create, :destroy]
-  resources :interested_ins
-  resources :sexes
-  resources :looking_fors
-  resources :outcomes
+  resources :pictures, only: %i[create destroy]
   resources :users
   resources :sessions, only: :create
 end
