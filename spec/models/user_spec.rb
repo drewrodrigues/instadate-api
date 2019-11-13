@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
     # inclusion
     it { should validate_inclusion_of(:age).in_range(18..100) }
     it { should validate_inclusion_of(:interested_in).in_array(%w[men women both]) }
-    it { should validate_inclusion_of(:sex).in_array(%w[male female]) }
+    it { should validate_inclusion_of(:sex).in_array(%w[man woman]) }
 
     # uniqueness
     it { should validate_uniqueness_of(:email).case_insensitive }

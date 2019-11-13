@@ -39,7 +39,7 @@ class User < ApplicationRecord
   # - inclusion
   validates :age, inclusion: 18..100
   validates :interested_in, inclusion: %w[men women both]
-  validates :sex, inclusion: %w[male female]
+  validates :sex, inclusion: %w[man woman]
   # - uniqueness
   validates :email, uniqueness: { case_sensitive: false }
 
