@@ -39,6 +39,7 @@ class User < ApplicationRecord
   # - inclusion
   validates :age, inclusion: 18..100
   validates :interested_in, inclusion: %w[men women both]
+  validate :valid_location
   validates :sex, inclusion: %w[man woman]
   # - uniqueness
   validates :email, uniqueness: { case_sensitive: false }
@@ -64,5 +65,15 @@ class User < ApplicationRecord
   def reset_session_token!
     set_session_token
     save
+  end
+
+  def valid_location
+    errors.add(:location, 'is invalid') unless cities.include?(location)
+  end
+
+  def cities
+    CS.states(:us).keys.flat_map do |state|
+      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}"}
+    end
   end
 end
