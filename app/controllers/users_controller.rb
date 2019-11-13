@@ -57,7 +57,8 @@ class UsersController < ApplicationController
       :bio,
       :interested_in,
       :outcome,
-      :name
+      :name,
+      :picture
     )
   end
 end

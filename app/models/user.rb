@@ -21,6 +21,9 @@ class User < ApplicationRecord
   # callbacks
   after_initialize :ensure_session_token
 
+  # attachments
+  has_one_attached :picture
+
   # validations
   # - presence
   validates :email,
