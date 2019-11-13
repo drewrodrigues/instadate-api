@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    @user.picture.attach(io: image_io, filename: "#{@user.email}-picture")
+    # @user.picture.attach(io: image_io, filename: "#{@user.email}-picture")
 
     if @user.save
       session[:session_token] = @user.session_token

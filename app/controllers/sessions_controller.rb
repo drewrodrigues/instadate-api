@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
 
     if user&.authenticate_password(password)
       session[:session_token] = user.session_token
-      render json: user.attributes.merge(picture: url_for(user.picture))
+      render json: user
+      # render json: user.attributes.merge(picture: url_for(user.picture))
     else
       render json: ['Failed to authenticate'], status: :unprocessable_entity
     end
