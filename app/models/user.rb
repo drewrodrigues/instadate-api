@@ -35,6 +35,8 @@ class User < ApplicationRecord
   has_one :picture, dependent: :destroy
 
   # validations
+  # - length
+  validates :password, length: { minimum: 8 }
   # - presence
   validates :email,
             :age,

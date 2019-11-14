@@ -20,8 +20,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:session_token] = @user.session_token
-      render json: @user.attributes.merge({ picture: { url: url_for(@user.picture.file), verified: @user.picture.verified }}),
-             status: :created, location: @user
+      render @user
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
