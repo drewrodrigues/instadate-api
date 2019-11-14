@@ -14,7 +14,7 @@ FactoryBot.define do
     location { 'San Francisco, CA' }
     sex { 'man' }
     interested_in { 'women' }
-    outcome { 'dating' }
+    outcomes { ['dating'] }
     bio { 'Cool bio goes here' }
   end
 end

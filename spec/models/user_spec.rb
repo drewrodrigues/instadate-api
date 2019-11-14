@@ -10,7 +10,6 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:bio) }
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:session_token) }
-    it { should validate_presence_of(:outcome) }
     it { should validate_presence_of(:interested_in) }
     it { should validate_presence_of(:sex) }
     it { should validate_presence_of(:name) }
@@ -19,6 +18,37 @@ RSpec.describe User, type: :model do
     it { should validate_inclusion_of(:age).in_range(18..100) }
     it { should validate_inclusion_of(:interested_in).in_array(%w[men women both]) }
     it { should validate_inclusion_of(:sex).in_array(%w[man woman]) }
+
+    describe 'outcomes' do
+      it 'requires at least one selection' do
+        user = build(:user, outcomes: [])
+        expect(user).to_not be_valid
+      end
+
+      it 'allows all combinations of dating, hookups, and relationships' do
+        options = %w[dating hookups relationship]
+
+        subsets = []
+        options.each do |left|
+          current_subset = [left]
+
+          subsets.dup.each do |subset|
+            subsets << subset + current_subset
+          end
+
+          subsets << current_subset
+        end
+
+        subsets.each do |option_subset|
+          expect(build(:user, outcomes: option_subset)).to be_valid
+        end
+      end
+
+      it 'is invalid with other other outcomes' do
+        user = build(:user, outcomes: %w[dating hookups relationship other])
+        expect(user).to be_invalid
+      end
+    end
 
     # uniqueness
     it { should validate_uniqueness_of(:email).case_insensitive }

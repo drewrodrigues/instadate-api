@@ -58,8 +58,8 @@ class UsersController < ApplicationController
       :sex,
       :bio,
       :interested_in,
-      :outcome,
-      :name
+      :name,
+      :outcomes => [],
     )
   end
 

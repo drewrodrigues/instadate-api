@@ -38,7 +38,7 @@ class User < ApplicationRecord
             :bio,
             :location,
             :session_token,
-            :outcome,
+            :outcomes,
             :interested_in,
             :sex,
             :name,
@@ -46,6 +46,7 @@ class User < ApplicationRecord
   # - inclusion
   validates :age, inclusion: 18..100
   validates :interested_in, inclusion: %w[men women both]
+  validate :valid_outcomes
   validate :valid_location
   validates :sex, inclusion: %w[man woman]
   # - uniqueness
@@ -76,5 +77,20 @@ class User < ApplicationRecord
 
   def valid_location
     errors.add(:location, 'is invalid') unless User.valid_cities.include?(location)
+  end
+
+  def valid_outcomes
+    return if outcomes_not_empty? && each_outcome_valid?
+
+    errors.add(:outcomes, 'is invalid')
+  end
+
+  def outcomes_not_empty?
+    !outcomes.empty?
+  end
+
+  def each_outcome_valid?
+    valid_outcomes = %w[dating hookups relationship]
+    outcomes.all? { |outcome| valid_outcomes.include?(outcome) }
   end
 end
