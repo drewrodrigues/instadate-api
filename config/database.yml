@@ -36,6 +36,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: instadate_api_production
   username: instadate_api
   password: <%= ENV['INSTADATE_API_DATABASE_PASSWORD'] %>
