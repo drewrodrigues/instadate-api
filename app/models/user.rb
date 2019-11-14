@@ -47,6 +47,8 @@ class User < ApplicationRecord
             :sex,
             :name,
             presence: true
+  # - format
+  validates :email, 'valid_email_2/email': true
   # - inclusion
   validates :age, inclusion: 18..100
   validate :valid_interested_in

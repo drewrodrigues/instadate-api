@@ -13,6 +13,8 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.11'
 gem 'rack-cors'
 gem 'rails', '~> 6.0.0'
+gem 'valid_email2', '~> 3.1'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
