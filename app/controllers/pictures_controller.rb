@@ -6,6 +6,8 @@
 
 class PicturesController < ApplicationController
   def create
+    puts ENV['AWS_ACCESS_KEY_ID']
+    puts ENV['Jj9uco33pBgwSi32ZhaDvfSzr7cEpWxkoC76veIW']
     @picture = Picture.new
     @picture.file.attach(io: image_io, filename: file_name)
 
