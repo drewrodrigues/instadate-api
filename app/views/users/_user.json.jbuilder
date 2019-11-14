@@ -13,7 +13,7 @@ json.extract! user,
 
 json.picture do
   if user.picture
-    json.url url_for(user.picture.file)
+    json.url polymorphic_url(user.picture.file)
     json.verified user.picture.verified
   else
     json.nil!
