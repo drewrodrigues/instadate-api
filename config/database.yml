@@ -2,11 +2,11 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
 
 development:
   <<: *default
   database: instadate_api_development
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,7 +36,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
   database: instadate_api_production
   username: instadate_api
   password: <%= ENV['INSTADATE_API_DATABASE_PASSWORD'] %>
