@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+    binding.pry
     @user = User.new(user_params)
     @user.picture = Picture.find(picture_id) if picture_id
 
