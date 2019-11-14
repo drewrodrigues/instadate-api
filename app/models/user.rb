@@ -37,7 +37,7 @@ class User < ApplicationRecord
   # validations
   # - length
   validates :bio, length: { in: 0..200 }
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, allow_nil: true
   # - presence
   validates :email,
             :age,
