@@ -18,6 +18,9 @@
 #
 
 class User < ApplicationRecord
+  # constants
+  INTERESTED_IN_OPTIONS = %w[men women]
+
   # class methods
   def self.valid_cities
     @@valid_cities ||= CS.states(:us).keys.flat_map do |state|
@@ -39,13 +42,12 @@ class User < ApplicationRecord
             :location,
             :session_token,
             :outcomes,
-            :interested_in,
             :sex,
             :name,
             presence: true
   # - inclusion
   validates :age, inclusion: 18..100
-  validates :interested_in, inclusion: %w[men women both]
+  validate :valid_interested_in
   validate :valid_outcomes
   validate :valid_location
   validates :sex, inclusion: %w[man woman]
@@ -85,6 +87,16 @@ class User < ApplicationRecord
     errors.add(:outcomes, 'is invalid')
   end
 
+  def valid_interested_in
+    return if interested_in_not_empty? && each_interested_in_valid?
+
+    errors.add(:interested_in, 'is invalid')
+  end
+
+  def interested_in_not_empty?
+    !interested_in.empty?
+  end
+
   def outcomes_not_empty?
     !outcomes.empty?
   end
@@ -92,5 +104,9 @@ class User < ApplicationRecord
   def each_outcome_valid?
     valid_outcomes = %w[dating hookups relationship]
     outcomes.all? { |outcome| valid_outcomes.include?(outcome) }
+  end
+
+  def each_interested_in_valid?
+    interested_in.all? { |interest| INTERESTED_IN_OPTIONS.include?(interest) }
   end
 end

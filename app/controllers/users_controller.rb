@@ -57,9 +57,9 @@ class UsersController < ApplicationController
       :location,
       :sex,
       :bio,
-      :interested_in,
       :name,
       :outcomes => [],
+      :interested_in => []
     )
   end
 

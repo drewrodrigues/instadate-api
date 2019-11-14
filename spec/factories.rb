@@ -13,7 +13,7 @@ FactoryBot.define do
     age { 24 }
     location { 'San Francisco, CA' }
     sex { 'man' }
-    interested_in { 'women' }
+    interested_in { ['women'] }
     outcomes { ['dating'] }
     bio { 'Cool bio goes here' }
   end
