@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  admin           :boolean          default("false")
+#  email           :string           not null
+#  password_digest :string           not null
+#  session_token   :text             not null
+#  age             :integer          not null
+#  location        :string           not null
+#  sex             :string           not null
+#  interested_in   :string           default("{}"), not null, is an Array
+#  outcomes        :string           default("{}"), not null, is an Array
+#  name            :string           not null
+#  bio             :text             not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do

@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: pictures
+#
+#  id         :integer          not null, primary key
+#  verified   :boolean          default("false"), not null
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # Picture can be created first, then associated with the user later so we can
 # create the record during onboarding previous to the user being created.
 class Picture < ApplicationRecord

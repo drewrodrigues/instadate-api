@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: pictures
+#
+#  id         :integer          not null, primary key
+#  verified   :boolean          default("false"), not null
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Picture, type: :model do

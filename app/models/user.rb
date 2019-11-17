@@ -3,16 +3,17 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  admin           :boolean          default("0")
-#  email           :string(255)      not null
-#  password_digest :string(255)      not null
-#  session_token   :text(65535)      not null
+#  admin           :boolean          default("false")
+#  email           :string           not null
+#  password_digest :string           not null
+#  session_token   :text             not null
 #  age             :integer          not null
-#  location        :string(255)      not null
-#  sex             :string(255)      not null
-#  interested_in   :string(255)      not null
-#  outcome         :string(255)      not null
-#  bio             :text(65535)      not null
+#  location        :string           not null
+#  sex             :string           not null
+#  interested_in   :string           default("{}"), not null, is an Array
+#  outcomes        :string           default("{}"), not null, is an Array
+#  name            :string           not null
+#  bio             :text             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
