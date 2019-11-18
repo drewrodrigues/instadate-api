@@ -1,4 +1,12 @@
 FactoryBot.define do
+  factory :instadate do
+    activity { 'drinks' }
+    location { 'San Francisco, CA' }
+    time { '2019-11-14 13:03:26' }
+
+    association :creator, factory: :user
+  end
+
   factory :picture do
     file { fixture_file_upload(Rails.root.join('spec', 'support', 'assets', 'avatar.jpg'), 'image/jpg') }
     verified { false }

@@ -33,6 +33,10 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   # associations
+  has_one :created_instadate,
+          inverse_of: :creator,
+          class_name: 'Instadate',
+          foreign_key: 'creator_id'
   has_one :picture, dependent: :destroy
 
   # validations
