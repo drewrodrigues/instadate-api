@@ -4,7 +4,11 @@ class InstadatesController < ApplicationController
   # GET /instadates
   # GET /instadates.json
   def index
-    @instadates = Instadate.all
+    if params[:creator_id]
+      @instadates = Instadate.where(creator_id: params[:creator_id])
+    else
+      @instadates = Instadate.all.includes(:creator)
+    end
   end
 
   # GET /instadates/1
@@ -24,16 +28,12 @@ class InstadatesController < ApplicationController
   # POST /instadates
   # POST /instadates.json
   def create
-    @instadate = Instadate.new(instadate_params)
+    @instadate = current_user.build_created_instadate(instadate_params)
 
-    respond_to do |format|
-      if @instadate.save
-        format.html { redirect_to @instadate, notice: 'Instadate was successfully created.' }
-        format.json { render :show, status: :created, location: @instadate }
-      else
-        format.html { render :new }
-        format.json { render json: @instadate.errors, status: :unprocessable_entity }
-      end
+    if @instadate.save
+      render @instadate
+    else
+      render json: [@instadate.errors.full_messages], status: :unprocessable_entity
     end
   end
 
