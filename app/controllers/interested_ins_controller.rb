@@ -39,13 +39,14 @@ class InterestedInsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_interested_in
-      @interested_in = InterestedIn.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def interested_in_params
-      params.require(:interested_in).permit(:user_id, :sex_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_interested_in
+    @interested_in = InterestedIn.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def interested_in_params
+    params.require(:interested_in).permit(:user_id, :sex_id)
+  end
 end

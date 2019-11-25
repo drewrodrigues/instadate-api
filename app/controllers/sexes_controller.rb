@@ -39,13 +39,14 @@ class SexesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sex
-      @sex = Sex.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def sex_params
-      params.require(:sex).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sex
+    @sex = Sex.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def sex_params
+    params.require(:sex).permit(:name)
+  end
 end

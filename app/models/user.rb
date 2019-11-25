@@ -20,12 +20,12 @@
 
 class User < ApplicationRecord
   # constants
-  INTERESTED_IN_OPTIONS = %w[man woman]
+  INTERESTED_IN_OPTIONS = %w[man woman].freeze
 
   # class methods
   def self.valid_cities
     @@valid_cities ||= CS.states(:us).keys.flat_map do |state|
-      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}"}
+      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}" }
     end
   end
 

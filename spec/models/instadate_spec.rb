@@ -23,7 +23,7 @@ RSpec.describe Instadate, type: :model do
     it { should belong_to(:partner).optional }
 
     # inclusion
-    it { should validate_inclusion_of(:activity).in_array(Instadate::ACTIVITIES)}
+    it { should validate_inclusion_of(:activity).in_array(Instadate::ACTIVITIES) }
 
     describe 'city validation' do
       it 'allows valid city' do

@@ -39,13 +39,14 @@ class LookingForsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_looking_for
-      @looking_for = LookingFor.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def looking_for_params
-      params.require(:looking_for).permit(:user_id, :outcome_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_looking_for
+    @looking_for = LookingFor.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def looking_for_params
+    params.require(:looking_for).permit(:user_id, :outcome_id)
+  end
 end
