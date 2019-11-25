@@ -23,6 +23,73 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject(:user) { build(:user) }
 
+  describe 'scopes' do
+    describe '#available_dates' do
+      context 'when male interested in woman' do
+        context 'and woman dates created' do
+          it 'returns the woman\'s dates' do
+            woman = create(:user, sex: 'woman', interested_in: ['man'])
+            woman2 = create(:user, sex: 'woman', interested_in: ['man'])
+            date = create(:instadate, creator: woman)
+            date2 = create(:instadate, creator: woman2)
+
+            man = create(:user, sex: 'man', interested_in: ['woman'])
+
+            expect(man.available_dates).to include(date, date2)
+          end
+        end
+
+        context 'and woman dates created but interested in woman' do
+          it 'returns nothing' do
+            female = create(:user, sex: 'woman', interested_in: ['woman'])
+            female2 = create(:user, sex: 'woman', interested_in: ['woman'])
+            create(:instadate, creator: female)
+            create(:instadate, creator: female2)
+
+            man = create(:user, sex: 'man', interested_in: ['woman'])
+
+            expect(man.available_dates).to be_empty
+          end
+        end
+      end
+
+      context 'when man interested in man and woman' do
+        context 'and man and woman dates created interested in man' do
+          it 'returns both dates' do
+            woman = create(:user, sex: 'woman', interested_in: ['man'])
+            woman2 = create(:user, sex: 'woman', interested_in: ['man'])
+            date = create(:instadate, creator: woman)
+            date2 = create(:instadate, creator: woman2)
+
+            man = create(:user, sex: 'man', interested_in: ['man', 'woman'])
+
+            expect(man.available_dates).to include(date, date2)
+          end
+        end
+
+        context 'and 1 interested in man and other interested in woman' do
+          it 'returns 1 date' do
+            woman = create(:user, sex: 'woman', interested_in: ['man'])
+            woman2 = create(:user, sex: 'woman', interested_in: ['woman'])
+            date = create(:instadate, creator: woman)
+            date2 = create(:instadate, creator: woman2)
+
+            man = create(:user, sex: 'man', interested_in: ['man', 'woman'])
+
+            expect(man.available_dates).to include(date)
+          end
+        end
+      end
+
+      it 'doesn\'t return the user\'s created date' do
+        user = create(:user)
+        date = create(:instadate, creator: user)
+
+        expect(user.available_dates).to be_empty
+      end
+    end
+  end
+
   describe 'validations' do
     # presence
     it { should validate_presence_of(:email) }

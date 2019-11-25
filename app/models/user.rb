@@ -29,6 +29,14 @@ class User < ApplicationRecord
     end
   end
 
+  # queries
+  def available_dates
+    Instadate.includes(:creator)
+             .where.not(users: { id: id }) # not my created date
+             .where(users: { sex: interested_in }) # I'm interested in them
+             .where('? = ANY(users.interested_in)', sex) # they're interested in me
+  end
+
   # callbacks
   after_initialize :ensure_session_token
 

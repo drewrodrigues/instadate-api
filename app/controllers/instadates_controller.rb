@@ -7,7 +7,7 @@ class InstadatesController < ApplicationController
     if params[:creator_id]
       @instadates = Instadate.where(creator_id: params[:creator_id])
     else
-      @instadates = Instadate.all.includes(:creator)
+      @instadates = current_user.available_dates
     end
   end
 
