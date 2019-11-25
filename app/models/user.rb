@@ -20,7 +20,7 @@
 
 class User < ApplicationRecord
   # constants
-  INTERESTED_IN_OPTIONS = %w[men women]
+  INTERESTED_IN_OPTIONS = %w[man woman]
 
   # class methods
   def self.valid_cities

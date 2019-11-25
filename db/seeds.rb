@@ -15,7 +15,7 @@ ActiveRecord::Base.transaction do
       age: 24,
       location: 'Walnut Creek, CA',
       sex: i > 20 ? 'woman' : 'man',
-      interested_in: i > 20 ? ['men'] : ['women'],
+      interested_in: i > 20 ? ['man'] : ['woman'],
       outcomes: %w[dating relationship],
       bio: 'Something cool goes here',
       picture: photo
