@@ -4,17 +4,12 @@ class InstadatesController < ApplicationController
   # GET /instadates
   # GET /instadates.json
   def index
-    if params[:creator_id]
-      @instadates = Instadate.where(creator_id: params[:creator_id])
-    else
-      @instadates = current_user.available_dates
-    end
+    @instadates = current_user.created_instadate
   end
 
   # GET /instadates/1
   # GET /instadates/1.json
-  def show
-  end
+  def show; end
 
   # GET /instadates/new
   def new
@@ -22,8 +17,7 @@ class InstadatesController < ApplicationController
   end
 
   # GET /instadates/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /instadates
   # POST /instadates.json
