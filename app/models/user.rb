@@ -19,39 +19,33 @@
 #
 
 class User < ApplicationRecord
-  # constants
   INTERESTED_IN_OPTIONS = %w[man woman].freeze
 
-  # class methods
   def self.valid_cities
+    # TODO: use validator instead
     @@valid_cities ||= CS.states(:us).keys.flat_map do |state|
       CS.cities(state, :us).flat_map { |city| "#{city}, #{state}" }
     end
   end
 
-  # queries
   def available_dates
+    # TODO: pull out and chain queries
     Instadate.includes(:creator)
              .where.not(users: { id: id }) # not my created date
              .where(users: { sex: interested_in }) # I'm interested in them
              .where('? = ANY(users.interested_in)', sex) # they're interested in me
   end
 
-  # callbacks
   after_initialize :ensure_session_token
 
-  # associations
   has_one :created_instadate,
           inverse_of: :creator,
           class_name: 'Instadate',
           foreign_key: 'creator_id'
   has_one :picture, dependent: :destroy
 
-  # validations
-  # - length
   validates :bio, length: { in: 0..200 }
   validates :password, length: { minimum: 8 }, allow_nil: true
-  # - presence
   validates :email,
             :age,
             :bio,
@@ -61,18 +55,14 @@ class User < ApplicationRecord
             :sex,
             :name,
             presence: true
-  # - format
   validates :email, 'valid_email_2/email': true
-  # - inclusion
   validates :age, inclusion: 18..100
   validate :valid_interested_in
   validate :valid_outcomes
   validate :valid_location
   validates :sex, inclusion: %w[man woman]
-  # - uniqueness
   validates :email, uniqueness: { case_sensitive: false }
 
-  # auth
   has_secure_password
 
   def authenticate_password(password)

@@ -15,31 +15,25 @@
 require_relative 'validators/city_validator'
 
 class Instadate < ApplicationRecord
-  # constants
-  ACTIVITIES = [
-    'anything',
-    'coffee',
-    'drinks',
-    'food',
-    'hike',
-    'ice skating',
-    'movie',
-    'other',
-    'roller skating',
-    'tea',
-    'walk'
+  ACTIVITIES = %w[
+    anything
+    coffee
+    drinks
+    food
+    hike
+    movie
+    other
+    skating
+    tea
+    wal
   ].freeze
 
-  # associations
   belongs_to :creator, class_name: 'User'
   belongs_to :partner, class_name: 'User', optional: true
 
-  # validations
   include ActiveModel::Validations
-  # - inclusion
   validates :activity, inclusion: ACTIVITIES
   validates :location, city: true
-  # - custom
   validate :only_one_created_date
 
   private
