@@ -9,8 +9,8 @@ ActiveRecord::Base.transaction do
     photo.save
 
     User.create!(
-      email: "drew#{i}@example.com",
-      password_digest: '$2a$12$nBoKjl6D3dgjDAtoZ9q7U.Rp64Xv.ZWSpexP5',
+      email: "#{i}@example.com",
+      password: 'password',
       name: i > 20 ? "Girl Name #{i}" : "Guy Name #{i}",
       age: 24,
       location: 'Walnut Creek, CA',
@@ -21,10 +21,12 @@ ActiveRecord::Base.transaction do
       picture: photo
     )
 
-    Instadate.create!(
-      creator: User.last,
-      location: 'San Francisco, CA',
-      activity: Instadate::ACTIVITIES.sample
-    )
+    if rand(5) == 1
+      Instadate.create!(
+        creator: User.last,
+        location: 'San Francisco, CA',
+        activity: Instadate::ACTIVITIES.sample
+      )
+    end
   end
 end
