@@ -8,6 +8,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_pictures_on_user_id  (user_id)
+#
 
 # Picture can be created first, then associated with the user later so we can
 # create the record during onboarding previous to the user being created.

@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :spark do
+    instadate
+    user
+    note { 'Some note goes here' }
+  end
+
   factory :instadate do
     activity { 'drinks' }
     latitude { 37.90142703201782 }

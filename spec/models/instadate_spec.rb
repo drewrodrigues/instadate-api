@@ -4,12 +4,22 @@
 #
 #  id         :integer          not null, primary key
 #  activity   :string           not null
-#  location   :string           not null
 #  time       :time
 #  creator_id :integer          not null
 #  partner_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  address    :string           not null
+#  city       :string           not null
+#  latitude   :float            not null
+#  longitude  :float            not null
+#
+# Indexes
+#
+#  index_instadates_on_creator_id  (creator_id)
+#  index_instadates_on_latitude    (latitude)
+#  index_instadates_on_longitude   (longitude)
+#  index_instadates_on_partner_id  (partner_id)
 #
 
 require 'rails_helper'

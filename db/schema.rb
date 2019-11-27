@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 2019_11_30_151548) do
     t.index ["user_id"], name: "index_pictures_on_user_id"
   end
 
+  create_table "sparks", force: :cascade do |t|
+    t.bigint "instadate_id", null: false
+    t.bigint "user_id", null: false
+    t.text "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["instadate_id"], name: "index_sparks_on_instadate_id"
+    t.index ["user_id", "instadate_id"], name: "index_sparks_on_user_id_and_instadate_id", unique: true
+    t.index ["user_id"], name: "index_sparks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
     t.string "email", null: false
@@ -81,4 +92,6 @@ ActiveRecord::Schema.define(version: 2019_11_30_151548) do
   add_foreign_key "instadates", "users", column: "creator_id"
   add_foreign_key "instadates", "users", column: "partner_id"
   add_foreign_key "pictures", "users"
+  add_foreign_key "sparks", "instadates"
+  add_foreign_key "sparks", "users"
 end
