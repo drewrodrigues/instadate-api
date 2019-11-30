@@ -4,7 +4,7 @@ class InstadatesController < ApplicationController
   # GET /instadates
   # GET /instadates.json
   def index
-    @instadates = current_user.created_instadate
+    @instadates = [current_user.created_instadate].compact
   end
 
   # GET /instadates/1
