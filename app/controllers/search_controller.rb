@@ -2,7 +2,10 @@ class SearchController < ApplicationController
   def index
     @latitude = latitude
     @longitude = longitude
-    @instadates = current_user.available_dates.near([latitude, longitude], distance)
+    @instadates = current_user
+                  .available_dates
+                  .includes(:creator, creator: [:picture])
+                  .near([latitude, longitude], distance)
   end
 
   private
