@@ -1,11 +1,8 @@
 json.extract! instadate,
   :id,
   :activity,
-  :latitude,
-  :longitude,
+  :city,
   :time,
   :creator_id,
-  :partner_id,
-  :created_at,
-  :updated_at
+  :partner_id
 json.url instadate_url(instadate, format: :json)

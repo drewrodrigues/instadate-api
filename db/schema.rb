@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_151548) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "address", null: false
+    t.string "city", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false
     t.index ["creator_id"], name: "index_instadates_on_creator_id"
