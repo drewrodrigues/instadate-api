@@ -16,7 +16,7 @@ ActiveRecord::Base.transaction do
     User.create!(
       email: "#{i}@example.com",
       password: 'password',
-      name: i > 20 ? "Girl Name #{i}" : "Guy Name #{i}",
+      name: i > 20 ? "Viviana#{i}" : "Drew#{i}",
       age: 24,
       location: 'Walnut Creek, CA',
       sex: i > 20 ? 'woman' : 'man',

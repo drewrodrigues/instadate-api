@@ -26,7 +26,7 @@ class Instadate < ApplicationRecord
     other
     skating
     tea
-    wal
+    walk
   ].freeze
 
   belongs_to :creator, class_name: 'User'
