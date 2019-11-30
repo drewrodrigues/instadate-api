@@ -22,7 +22,7 @@ ActiveRecord::Base.transaction do
       sex: i > 20 ? 'woman' : 'man',
       interested_in: i > 20 ? ['man'] : ['woman'],
       outcomes: %w[dating relationship],
-      bio: 'Something cool goes here',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam ullam ullam sed do.',
       picture: photo
     )
 
