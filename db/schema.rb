@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_210326) do
+ActiveRecord::Schema.define(version: 2019_11_30_151548) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,13 +38,17 @@ ActiveRecord::Schema.define(version: 2019_11_14_210326) do
 
   create_table "instadates", force: :cascade do |t|
     t.string "activity", null: false
-    t.string "location", null: false
     t.time "time"
     t.bigint "creator_id", null: false
     t.bigint "partner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "address", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
     t.index ["creator_id"], name: "index_instadates_on_creator_id"
+    t.index ["latitude"], name: "index_instadates_on_latitude"
+    t.index ["longitude"], name: "index_instadates_on_longitude"
     t.index ["partner_id"], name: "index_instadates_on_partner_id"
   end
 

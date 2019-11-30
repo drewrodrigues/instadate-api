@@ -24,7 +24,8 @@ ActiveRecord::Base.transaction do
     if rand(5) == 1
       Instadate.create!(
         creator: User.last,
-        location: 'San Francisco, CA',
+        latitude: 37.90142703201782,
+        longitude: -122.05736366540268,
         activity: Instadate::ACTIVITIES.sample
       )
     end

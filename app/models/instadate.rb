@@ -15,6 +15,8 @@
 require_relative 'validators/city_validator'
 
 class Instadate < ApplicationRecord
+  extend Geocoder::Model::ActiveRecord
+
   ACTIVITIES = %w[
     anything
     coffee
@@ -33,8 +35,11 @@ class Instadate < ApplicationRecord
 
   include ActiveModel::Validations
   validates :activity, inclusion: ACTIVITIES
-  validates :location, city: true
+  validates :latitude, :longitude, presence: true
   validate :only_one_created_date
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
 
   private
 

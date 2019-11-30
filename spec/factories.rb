@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :instadate do
     activity { 'drinks' }
-    location { 'San Francisco, CA' }
+    latitude { 37.90142703201782 }
+    longitude { -122.05736366540268 }
     time { '2019-11-14 13:03:26' }
 
     association :creator, factory: :user

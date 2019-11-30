@@ -1,5 +1,5 @@
 class InstadatesController < ApplicationController
-  before_action :set_instadate, only: [:show, :edit, :update, :destroy]
+  before_action :set_instadate, only: [:show, :update, :destroy]
 
   # GET /instadates
   # GET /instadates.json
@@ -10,14 +10,6 @@ class InstadatesController < ApplicationController
   # GET /instadates/1
   # GET /instadates/1.json
   def show; end
-
-  # GET /instadates/new
-  def new
-    @instadate = Instadate.new
-  end
-
-  # GET /instadates/1/edit
-  def edit; end
 
   # POST /instadates
   # POST /instadates.json
@@ -64,6 +56,12 @@ class InstadatesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def instadate_params
-    params.require(:instadate).permit(:activity, :location, :time, :creator_id, :partner_id)
+    params.require(:instadate).permit(
+      :activity,
+      :time,
+      :creator_id,
+      :latitude,
+      :longitude
+    )
   end
 end
