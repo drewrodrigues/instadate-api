@@ -3,6 +3,11 @@ ActiveRecord::Base.transaction do
   Instadate.destroy_all
   User.destroy_all
 
+  SF_LATITUDE = 37.7749
+  SF_LONGITUDE = -122.4194
+  WALNUT_CREEK_LATITUDE = 37.90142703201782
+  WALNUT_CREEK_LONGITUDE = -122.05736366540268
+
   (1..40).each do |i|
     photo = Picture.new
     photo.file.attach(io: File.open(File.join(Rails.root, "db/seed_data/#{i}.jpeg")), filename: i)
@@ -21,13 +26,11 @@ ActiveRecord::Base.transaction do
       picture: photo
     )
 
-    if rand(5) == 1
-      Instadate.create!(
-        creator: User.last,
-        latitude: 37.90142703201782,
-        longitude: -122.05736366540268,
-        activity: Instadate::ACTIVITIES.sample
-      )
-    end
+    Instadate.create!(
+      creator: User.last,
+      latitude: i.even? ? SF_LATITUDE : WALNUT_CREEK_LATITUDE,
+      longitude: i.even? ? SF_LONGITUDE : WALNUT_CREEK_LONGITUDE,
+      activity: Instadate::ACTIVITIES.sample
+    )
   end
 end
