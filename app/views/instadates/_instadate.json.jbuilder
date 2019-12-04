@@ -5,4 +5,3 @@ json.extract! instadate,
   :time,
   :creator_id,
   :partner_id
-json.url instadate_url(instadate, format: :json)

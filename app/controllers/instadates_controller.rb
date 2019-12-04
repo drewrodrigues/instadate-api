@@ -1,5 +1,5 @@
 class InstadatesController < ApplicationController
-  before_action :set_instadate, only: [:show, :update, :destroy]
+  before_action :set_instadate, only: [:show, :destroy]
 
   # GET /instadates
   # GET /instadates.json
@@ -19,21 +19,18 @@ class InstadatesController < ApplicationController
     if @instadate.save
       render @instadate
     else
-      render json: [@instadate.errors.full_messages], status: :unprocessable_entity
+      render json: @instadate.errors.full_messages, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /instadates/1
-  # PATCH/PUT /instadates/1.json
+  # PATCH/PUT /instadates
+  # PATCH/PUT /instadates
   def update
-    respond_to do |format|
-      if @instadate.update(instadate_params)
-        format.html { redirect_to @instadate, notice: 'Instadate was successfully updated.' }
-        format.json { render :show, status: :ok, location: @instadate }
-      else
-        format.html { render :edit }
-        format.json { render json: @instadate.errors, status: :unprocessable_entity }
-      end
+    @instadate = current_user.created_instadate
+    if @instadate.update(instadate_params)
+      render :show, status: :ok, location: @instadate
+    else
+      render json: @instadate.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -41,10 +38,7 @@ class InstadatesController < ApplicationController
   # DELETE /instadates/1.json
   def destroy
     @instadate.destroy
-    respond_to do |format|
-      format.html { redirect_to instadates_url, notice: 'Instadate was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: @instadate
   end
 
   private
@@ -59,7 +53,6 @@ class InstadatesController < ApplicationController
     params.require(:instadate).permit(
       :activity,
       :time,
-      :creator_id,
       :latitude,
       :longitude
     )
