@@ -43,6 +43,8 @@ class Instadate < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   belongs_to :partner, class_name: 'User', optional: true
 
+  has_many :sparks, dependent: :destroy
+
   validates :activity, inclusion: ACTIVITIES
   validates :latitude, :longitude, presence: true
   validate :only_one_created_date
