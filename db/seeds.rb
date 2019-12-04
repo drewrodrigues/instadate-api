@@ -33,4 +33,12 @@ ActiveRecord::Base.transaction do
       activity: Instadate::ACTIVITIES.sample
     )
   end
+
+  User.last(4).each do |user|
+    Spark.create!(
+      user_id: user.id,
+      instadate_id: User.first.created_instadate.id,
+      note: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt u incididunt u incididunt u s.'
+    )
+  end
 end
