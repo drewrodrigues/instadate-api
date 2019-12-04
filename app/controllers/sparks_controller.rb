@@ -10,16 +10,12 @@ class SparksController < ApplicationController
   # POST /sparks
   # POST /sparks.json
   def create
-    @spark = Spark.new(spark_params)
+    @spark = current_user.sparks.build(spark_params)
 
-    respond_to do |format|
-      if @spark.save
-        format.html { redirect_to @spark, notice: 'Spark was successfully created.' }
-        format.json { render :show, status: :created, location: @spark }
-      else
-        format.html { render :new }
-        format.json { render json: @spark.errors, status: :unprocessable_entity }
-      end
+    if @spark.save
+      render @spark
+    else
+      render json: @spark.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -27,21 +23,18 @@ class SparksController < ApplicationController
   # DELETE /sparks/1.json
   def destroy
     @spark.destroy
-    respond_to do |format|
-      format.html { redirect_to sparks_url, notice: 'Spark was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: @spark
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_spark
-    @spark = Spark.find(params[:id])
+    @spark = current_user.sparks.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def spark_params
-    params.require(:spark).permit(:instadate_id, :user_id, :note)
+    params.require(:spark).permit(:instadate_id, :note)
   end
 end
