@@ -43,7 +43,13 @@ class User < ApplicationRecord
           class_name: 'Instadate',
           foreign_key: 'creator_id'
   has_one :picture, dependent: :destroy
-  has_many :sparks, dependent: :destroy
+  has_many :sent_sparks,
+           class_name: 'Spark',
+           dependent: :destroy
+  has_many :received_sparks,
+           through: :created_instadate,
+           source: :sparks
+
 
   validates :bio, length: { in: 0..200 }
   validates :password, length: { minimum: 8 }, allow_nil: true
