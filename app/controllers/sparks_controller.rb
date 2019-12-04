@@ -4,13 +4,14 @@ class SparksController < ApplicationController
   # GET /sparks
   # GET /sparks.json
   def index
-    @sparks = Spark.all
+    @sparks = current_user.received_sparks
+                          .includes(:user, user: :picture)
   end
 
   # POST /sparks
   # POST /sparks.json
   def create
-    @spark = current_user.sparks.build(spark_params)
+    @spark = current_user.sent_sparks.build(spark_params)
 
     if @spark.save
       render @spark
