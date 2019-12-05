@@ -6,6 +6,7 @@ class SearchController < ApplicationController
                   .available_dates
                   .includes(:creator, creator: [:picture])
                   .near([latitude, longitude], distance)
+    @sent_sparks = current_user.sent_sparks
   end
 
   private
