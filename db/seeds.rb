@@ -1,3 +1,5 @@
+require 'faker'
+
 ActiveRecord::Base.transaction do
   Picture.destroy_all
   Instadate.destroy_all
@@ -16,7 +18,7 @@ ActiveRecord::Base.transaction do
     User.create!(
       email: "#{i}@example.com",
       password: 'password',
-      name: i > 20 ? "Viviana#{i}" : "Drew#{i}",
+      name: i > 20 ? Faker::Name.female_first_name : Faker::Name.male_first_name,
       age: 24,
       location: 'Walnut Creek, CA',
       sex: i > 20 ? 'woman' : 'man',
