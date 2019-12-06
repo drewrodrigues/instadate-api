@@ -19,12 +19,12 @@ ActiveRecord::Base.transaction do
       email: "#{i}@example.com",
       password: 'password',
       name: i > 20 ? Faker::Name.female_first_name : Faker::Name.male_first_name,
-      age: 24,
-      location: 'Walnut Creek, CA',
+      age: rand(18..100),
+      location: i.even? ? 'San Francisco, CA' : 'Walnut Creek, CA',
       sex: i > 20 ? 'woman' : 'man',
       interested_in: i > 20 ? ['man'] : ['woman'],
       outcomes: %w[dating relationship],
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam ullam ullam sed do.',
+      bio: Faker::Hipster.paragraph_by_chars(characters: 200, supplemental: false),
       picture: photo
     )
 
