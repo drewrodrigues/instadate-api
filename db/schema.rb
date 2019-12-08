@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_151548) do
+ActiveRecord::Schema.define(version: 2019_12_08_222207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_151548) do
     t.text "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "denied", default: false
     t.index ["instadate_id"], name: "index_sparks_on_instadate_id"
     t.index ["user_id", "instadate_id"], name: "index_sparks_on_user_id_and_instadate_id", unique: true
     t.index ["user_id"], name: "index_sparks_on_user_id"

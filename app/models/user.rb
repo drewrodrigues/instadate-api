@@ -36,6 +36,10 @@ class User < ApplicationRecord
              .where('? = ANY(users.interested_in)', sex) # they're interested in me
   end
 
+  def pending_sparks
+    received_sparks.where(denied: false)
+  end
+
   after_initialize :ensure_session_token
 
   has_one :created_instadate,
