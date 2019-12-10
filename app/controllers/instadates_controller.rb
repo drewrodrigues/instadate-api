@@ -2,17 +2,14 @@ class InstadatesController < ApplicationController
   before_action :set_instadate, only: [:show, :destroy]
 
   # GET /instadates
-  # GET /instadates.json
   def index
     @instadates = [current_user.created_instadate].compact
   end
 
   # GET /instadates/1
-  # GET /instadates/1.json
   def show; end
 
   # POST /instadates
-  # POST /instadates.json
   def create
     @instadate = current_user.build_created_instadate(instadate_params)
 
@@ -35,7 +32,6 @@ class InstadatesController < ApplicationController
   end
 
   # DELETE /instadates/1
-  # DELETE /instadates/1.json
   def destroy
     @instadate.destroy
     render json: @instadate

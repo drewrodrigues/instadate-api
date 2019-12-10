@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :conversations, only: %i[index show create]
   patch '/instadates', to: 'instadates#update'
   put '/instadates', to: 'instadates#update'
   get 'search', to: 'search#index'

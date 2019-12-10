@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :conversation do
+    user_one { nil }
+    user_two { nil }
+    messages_left { 1 }
+  end
+
   factory :spark do
     instadate
     user

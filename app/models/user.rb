@@ -36,6 +36,10 @@ class User < ApplicationRecord
              .where('? = ANY(users.interested_in)', sex) # they're interested in me
   end
 
+  def conversations
+    Conversation.where('accepting_user_id = :id OR requesting_user_id = :id', id: id)
+  end
+
   def pending_sparks
     received_sparks.where(denied: false)
   end
@@ -45,14 +49,16 @@ class User < ApplicationRecord
   has_one :created_instadate,
           inverse_of: :creator,
           class_name: 'Instadate',
-          foreign_key: 'creator_id'
+          foreign_key: 'creator_id',
+          dependent: :destroy
   has_one :picture, dependent: :destroy
   has_many :sent_sparks,
            class_name: 'Spark',
            dependent: :destroy
   has_many :received_sparks,
            through: :created_instadate,
-           source: :sparks
+           source: :sparks,
+           dependent: :destroy
 
 
   validates :bio, length: { in: 0..200 }
