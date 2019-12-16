@@ -36,7 +36,7 @@ ActiveRecord::Base.transaction do
     )
   end
 
-  User.last(4).each do |user|
+  User.last(20).each do |user|
     Spark.create!(
       user_id: user.id,
       instadate_id: User.first.created_instadate.id,
