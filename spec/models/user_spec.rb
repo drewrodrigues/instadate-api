@@ -8,7 +8,6 @@
 #  password_digest :string           not null
 #  session_token   :text             not null
 #  age             :integer          not null
-#  location        :string           not null
 #  sex             :string           not null
 #  interested_in   :string           default("{}"), not null, is an Array
 #  outcomes        :string           default("{}"), not null, is an Array
@@ -16,6 +15,15 @@
 #  bio             :text             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  latitude        :float            not null
+#  longitude       :float            not null
+#  city            :string           not null
+#
+# Indexes
+#
+#  index_users_on_city       (city)
+#  index_users_on_latitude   (latitude)
+#  index_users_on_longitude  (longitude)
 #
 
 require 'rails_helper'

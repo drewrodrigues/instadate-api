@@ -8,7 +8,6 @@
 #  password_digest :string           not null
 #  session_token   :text             not null
 #  age             :integer          not null
-#  location        :string           not null
 #  sex             :string           not null
 #  interested_in   :string           default("{}"), not null, is an Array
 #  outcomes        :string           default("{}"), not null, is an Array
@@ -16,17 +15,21 @@
 #  bio             :text             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  latitude        :float            not null
+#  longitude       :float            not null
+#  city            :string           not null
+#
+# Indexes
+#
+#  index_users_on_city       (city)
+#  index_users_on_latitude   (latitude)
+#  index_users_on_longitude  (longitude)
 #
 
 class User < ApplicationRecord
-  INTERESTED_IN_OPTIONS = %w[man woman].freeze
+  extend Geocoder::Model::ActiveRecord
 
-  def self.valid_cities
-    # TODO: use validator instead
-    @@valid_cities ||= CS.states(:us).keys.flat_map do |state|
-      CS.cities(state, :us).flat_map { |city| "#{city}, #{state}" }
-    end
-  end
+  INTERESTED_IN_OPTIONS = %w[man woman].freeze
 
   def available_dates
     # TODO: pull out and chain queries
@@ -66,7 +69,8 @@ class User < ApplicationRecord
   validates :email,
             :age,
             :bio,
-            :location,
+            :latitude,
+            :longitude,
             :session_token,
             :outcomes,
             :sex,
@@ -76,9 +80,15 @@ class User < ApplicationRecord
   validates :age, inclusion: 18..100
   validate :valid_interested_in
   validate :valid_outcomes
-  validate :valid_location
   validates :sex, inclusion: %w[man woman]
   validates :email, uniqueness: { case_sensitive: false }
+
+  reverse_geocoded_by :latitude, :longitude do |obj, results|
+    if geo = results.first
+      obj.city = geo.city
+    end
+  end
+  after_validation :reverse_geocode
 
   has_secure_password
 
@@ -100,10 +110,6 @@ class User < ApplicationRecord
   def reset_session_token!
     set_session_token
     save
-  end
-
-  def valid_location
-    errors.add(:location, 'is invalid') unless User.valid_cities.include?(location)
   end
 
   def valid_outcomes

@@ -53,12 +53,13 @@ class UsersController < ApplicationController
       :email,
       :password,
       :age,
-      :location,
       :sex,
+      :latitude,
+      :longitude,
       :bio,
       :name,
-      :outcomes => [],
-      :interested_in => []
+      outcomes: [],
+      interested_in: []
     )
   end
 
