@@ -1,1 +1,5 @@
-json.partial! "conversations/conversation", conversation: @conversation
+json.conversation do
+  json.partial! "conversations/conversation", conversation: @conversation
+end
+
+json.messages([])

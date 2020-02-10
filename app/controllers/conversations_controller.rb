@@ -8,7 +8,7 @@ class ConversationsController < ApplicationController
 
   # GET /conversations/1
   def show
-    @conversation = User.conversations.find(params[:id])
+    @conversation = current_user.conversations.find(params[:id])
   end
 
   # POST /conversations

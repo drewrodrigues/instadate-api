@@ -16,4 +16,13 @@
 class Conversation < ApplicationRecord
   belongs_to :accepting_user, class_name: 'User'
   belongs_to :requesting_user, class_name: 'User'
+
+  def messages_left
+    # TODO: implement once messages are in place
+    9
+  end
+
+  def other_user(current_user)
+    current_user == accepting_user ? requesting_user : accepting_user
+  end
 end
