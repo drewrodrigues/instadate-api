@@ -17,9 +17,10 @@ class Conversation < ApplicationRecord
   belongs_to :accepting_user, class_name: 'User'
   belongs_to :requesting_user, class_name: 'User'
 
+  has_many :messages, dependent: :destroy
+
   def messages_left
-    # TODO: implement once messages are in place
-    9
+    messages.count
   end
 
   def other_user(current_user)

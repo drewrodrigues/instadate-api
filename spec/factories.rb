@@ -1,8 +1,13 @@
 FactoryBot.define do
+  factory :message do
+    body { "MyText" }
+    conversation
+    user
+  end
+
   factory :conversation do
-    user_one { nil }
-    user_two { nil }
-    messages_left { 1 }
+    association :accepting_user, factory: :user
+    association :requesting_user, factory: :user
   end
 
   factory :spark do
@@ -32,7 +37,9 @@ FactoryBot.define do
     password_digest { '$2a$12$DzPxx3jLfbUGZcNSJENj4eDviNIEIgM8bKaPYAlLgRiPsaUVdYK6.' } # 'password'
     session_token { 'zJ94Hk5VqRpL9PH4xaqo5w==' }
     age { 24 }
-    location { 'San Francisco, CA' }
+    latitude { 37.783675599999995 }
+    longitude { -122.41273609999999 }
+    city { 'San Francisco' }
     sex { 'man' }
     interested_in { ['woman'] }
     outcomes { ['dating'] }

@@ -55,6 +55,7 @@ class User < ApplicationRecord
           foreign_key: 'creator_id',
           dependent: :destroy
   has_one :picture, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_many :sent_sparks,
            class_name: 'Spark',
            dependent: :destroy
