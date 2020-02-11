@@ -64,7 +64,6 @@ class User < ApplicationRecord
            source: :sparks,
            dependent: :destroy
 
-
   validates :bio, length: { in: 0..200 }
   validates :password, length: { minimum: 8 }, allow_nil: true
   validates :email,

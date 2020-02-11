@@ -22,9 +22,17 @@ class Message < ApplicationRecord
   validates :body, presence: true
   validate :not_at_conversation_limit, on: :create
 
+  def conversation_at_limit?
+    total_conversation_messages >= 10
+  end
+
+  def total_conversation_messages
+    @total_conversation_messages ||= conversation.messages.count
+  end
+
   private
 
   def not_at_conversation_limit
-    errors.add(:conversation, 'at max messages') if conversation.messages.count >= 10
+    errors.add(:conversation, 'at max messages') if conversation_at_limit?
   end
 end

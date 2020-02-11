@@ -18,6 +18,14 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
+  subject do
+    user = build_stubbed(:user)
+    conversation = build_stubbed(:conversation, accepting_user: user)
+    message = build(:message, conversation: conversation, user: user)
+    message.stub(:conversation_at_limit?) { false }
+    message
+  end
+
   describe 'validations' do
     it { should belong_to(:conversation) }
     it { should belong_to(:user) }
@@ -27,8 +35,9 @@ RSpec.describe Message, type: :model do
   describe 'limits' do
     context 'when 0 messages in conversation' do
       it 'is valid' do
-        user = create(:user)
-        conversation = create(:conversation, accepting_user: user)
+        # TODO: abstract out with factory
+        user = build_stubbed(:user)
+        conversation = build_stubbed(:conversation, accepting_user: user)
         message = build(:message, conversation: conversation, user: user)
 
         expect(message).to be_valid
@@ -37,23 +46,20 @@ RSpec.describe Message, type: :model do
 
     context 'when 10 messages in conversation' do
       before(:all) do
-        user = create(:user)
-        conversation = create(:conversation, accepting_user: user)
-
-        10.times do
-          create(:message, conversation: conversation, user: user)
-        end
-
-        @message_11 = build(:message, conversation: conversation, user: user)
+        user = build_stubbed(:user)
+        conversation = build_stubbed(:conversation, accepting_user: user)
+        @message11 = build(:message, conversation: conversation, user: user)
       end
 
       it 'is invalid' do
-        expect(@message_11).to be_invalid
+        @message11.stub(:conversation_at_limit?) { true }
+        expect(@message11).to be_invalid
       end
 
       it 'has error' do
-        @message_11.validate
-        expect(@message_11.errors.full_messages.first).to eq('Conversation at max messages')
+        @message11.stub(:conversation_at_limit?) { true }
+        @message11.validate
+        expect(@message11.errors.full_messages.first).to eq('Conversation at max messages')
       end
     end
   end
