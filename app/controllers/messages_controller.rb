@@ -4,9 +4,9 @@ class MessagesController < ApplicationController
     @message = current_user.messages.build(message_params)
 
     if @message.save
-      render @message
+      render :show
     else
-      render @message.errors
+      render json: { 'errors' => @message.errors }
     end
   end
 
