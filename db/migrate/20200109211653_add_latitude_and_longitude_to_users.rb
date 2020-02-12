@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLatitudeAndLongitudeToUsers < ActiveRecord::Migration[6.0]
   def change
     add_column :users, :latitude, :float, null: false

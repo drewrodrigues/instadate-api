@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchController < ApplicationController
   def index
     @latitude = latitude
@@ -12,14 +14,14 @@ class SearchController < ApplicationController
   private
 
   def latitude
-    params["latitude"]
+    params['latitude']
   end
 
   def longitude
-    params["longitude"]
+    params['longitude']
   end
 
   def distance
-    params["distance"]
+    params['distance']
   end
 end

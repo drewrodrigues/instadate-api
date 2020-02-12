@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 json.sparks do
-  json.array! @sparks, partial: "sparks/spark", as: :spark
+  json.array! @sparks, partial: 'sparks/spark', as: :spark
 end
 
 json.users do

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 json.conversations do
-  json.array! @conversations, partial: "conversations/conversation", as: :conversation
+  json.array! @conversations, partial: 'conversations/conversation', as: :conversation
 end
 
 json.users do

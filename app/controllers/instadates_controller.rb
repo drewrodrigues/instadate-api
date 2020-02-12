@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InstadatesController < ApplicationController
-  before_action :set_instadate, only: [:show, :destroy]
+  before_action :set_instadate, only: %i[show destroy]
 
   # GET /instadates
   def index

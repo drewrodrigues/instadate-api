@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: instadates
@@ -60,7 +62,9 @@ class Instadate < ApplicationRecord
   private
 
   def only_one_created_date
-    errors.add(:creator, 'already created a date') if new_record? && date_exists?
+    if new_record? && date_exists?
+      errors.add(:creator, 'already created a date')
+    end
   end
 
   def date_exists?

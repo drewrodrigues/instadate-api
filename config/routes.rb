@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :messages, only: :create
   resources :conversations, only: %i[index show create]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  expected params
 #
 # file: Base64

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLongitudeAndLatitudeToInstadates < ActiveRecord::Migration[6.0]
   def change
     add_column :instadates, :address, :string, null: false

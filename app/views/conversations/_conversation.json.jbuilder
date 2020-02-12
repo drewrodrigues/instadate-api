@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.extract! conversation,
               :id,
               :messages_left,

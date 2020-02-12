@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 json.dates do
-  json.array! @instadates, partial: "instadates/instadate", as: :instadate
+  json.array! @instadates, partial: 'instadates/instadate', as: :instadate
 end
 
 json.users do

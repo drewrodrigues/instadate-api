@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SparksController < ApplicationController
   # GET /sparks
   # GET /sparks.json

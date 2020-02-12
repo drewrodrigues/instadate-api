@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConversationsController < ApplicationController
   before_action :set_conversation, only: %i[show destroy]
 

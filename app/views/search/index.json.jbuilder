@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 json.dates do
-  json.array! @instadates, partial: "search/search", as: :instadate
+  json.array! @instadates, partial: 'search/search', as: :instadate
 end
 
 json.users do
@@ -11,5 +13,5 @@ json.users do
 end
 
 json.sent_sparks do
-  json.array! @sent_sparks, partial: "sparks/spark", as: :spark
+  json.array! @sent_sparks, partial: 'sparks/spark', as: :spark
 end

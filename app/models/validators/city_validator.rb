@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class CityValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    record.errors.add(attribute, 'is invalid') unless valid_cities.include?(value)
+    unless valid_cities.include?(value)
+      record.errors.add(attribute, 'is invalid')
+    end
   end
 
   private

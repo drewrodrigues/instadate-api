@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -69,7 +71,7 @@ RSpec.describe User, type: :model do
             date = create(:instadate, creator: woman)
             date2 = create(:instadate, creator: woman2)
 
-            man = create(:user, sex: 'man', interested_in: ['man', 'woman'])
+            man = create(:user, sex: 'man', interested_in: %w[man woman])
 
             expect(man.available_dates).to include(date, date2)
           end
@@ -82,7 +84,7 @@ RSpec.describe User, type: :model do
             date = create(:instadate, creator: woman)
             date2 = create(:instadate, creator: woman2)
 
-            man = create(:user, sex: 'man', interested_in: ['man', 'woman'])
+            man = create(:user, sex: 'man', interested_in: %w[man woman])
 
             expect(man.available_dates).to include(date)
           end
@@ -188,9 +190,9 @@ RSpec.describe User, type: :model do
     context 'with correct password' do
       it 'resets the session_token' do
         user = build(:user)
-        expect {
+        expect do
           user.authenticate_password('password')
-        }.to change(user, :session_token)
+        end.to change(user, :session_token)
       end
 
       it 'returns the user' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faker'
 require 'pry'
 
@@ -61,8 +63,8 @@ ActiveRecord::Base.transaction do
         bio: Faker::Hipster.paragraph_by_chars(characters: 200, supplemental: false),
         picture: photo
       )
-    rescue => e
-      puts "failed User with error, trying again:"
+    rescue StandardError => e
+      puts 'failed User with error, trying again:'
       puts e
       retry
     end
@@ -74,8 +76,8 @@ ActiveRecord::Base.transaction do
         longitude: location_selection[:longitude],
         activity: Instadate::ACTIVITIES.sample
       )
-    rescue => e
-      puts "failed Instadate with error, trying again:"
+    rescue StandardError => e
+      puts 'failed Instadate with error, trying again:'
       puts e
       retry
     end
