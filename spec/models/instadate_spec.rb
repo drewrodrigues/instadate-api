@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: instadates
@@ -16,13 +15,6 @@
 #  latitude   :float            not null
 #  longitude  :float            not null
 #
-# Indexes
-#
-#  index_instadates_on_creator_id  (creator_id)
-#  index_instadates_on_latitude    (latitude)
-#  index_instadates_on_longitude   (longitude)
-#  index_instadates_on_partner_id  (partner_id)
-#
 
 require 'rails_helper'
 
@@ -35,7 +27,9 @@ RSpec.describe Instadate, type: :model do
     it { should belong_to(:partner).optional }
 
     # inclusion
-    it { should validate_inclusion_of(:activity).in_array(Instadate::ACTIVITIES) }
+    it {
+      should validate_inclusion_of(:activity).in_array(Instadate::ACTIVITIES)
+    }
 
     describe 'city validation' do
       it 'allows valid city' do

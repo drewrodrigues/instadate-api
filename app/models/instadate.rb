@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: instadates
@@ -15,13 +14,6 @@
 #  city       :string           not null
 #  latitude   :float            not null
 #  longitude  :float            not null
-#
-# Indexes
-#
-#  index_instadates_on_creator_id  (creator_id)
-#  index_instadates_on_latitude    (latitude)
-#  index_instadates_on_longitude   (longitude)
-#  index_instadates_on_partner_id  (partner_id)
 #
 
 require 'geocoder'
@@ -52,7 +44,8 @@ class Instadate < ApplicationRecord
   validate :only_one_created_date
 
   reverse_geocoded_by :latitude, :longitude do |obj, results|
-    if geo = results.first
+    geo = results.first
+    if geo
       obj.address = geo.address
       obj.city = geo.city
     end
@@ -62,9 +55,9 @@ class Instadate < ApplicationRecord
   private
 
   def only_one_created_date
-    if new_record? && date_exists?
-      errors.add(:creator, 'already created a date')
-    end
+    return unless new_record? && date_exists?
+
+    errors.add(:creator, 'already created a date')
   end
 
   def date_exists?

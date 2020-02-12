@@ -2,9 +2,9 @@
 
 class CityValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    unless valid_cities.include?(value)
-      record.errors.add(attribute, 'is invalid')
-    end
+    return if valid_cities.include?(value)
+
+    record.errors.add(attribute, 'is invalid')
   end
 
   private

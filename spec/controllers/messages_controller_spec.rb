@@ -46,19 +46,22 @@ RSpec.describe MessagesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Message' do
         expect do
-          post :create, params: { message: valid_attributes }, session: valid_session
+          post :create, params: { message: valid_attributes },
+                        session: valid_session
         end.to change(Message, :count).by(1)
       end
 
       it 'redirects to the created message' do
-        post :create, params: { message: valid_attributes }, session: valid_session
+        post :create, params: { message: valid_attributes },
+                      session: valid_session
         expect(response).to redirect_to(Message.last)
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { message: invalid_attributes }, session: valid_session
+        post :create, params: { message: invalid_attributes },
+                      session: valid_session
         expect(response).to be_successful
       end
     end

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: messages
@@ -10,11 +9,6 @@
 #  user_id         :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_messages_on_conversation_id  (conversation_id)
-#  index_messages_on_user_id          (user_id)
 #
 
 require 'rails_helper'
@@ -61,7 +55,9 @@ RSpec.describe Message, type: :model do
       it 'has error' do
         @message11.stub(:conversation_at_limit?) { true }
         @message11.validate
-        expect(@message11.errors.full_messages.first).to eq('Conversation at max messages')
+        expect(@message11.errors.full_messages.first).to(
+          eq('Conversation at max messages')
+        )
       end
     end
   end

@@ -8,8 +8,6 @@
 
 class PicturesController < ApplicationController
   def create
-    puts ENV['AWS_ACCESS_KEY_ID']
-    puts ENV['AWS_SECRET_ACCESS_KEY']
     @picture = Picture.new
     @picture.file.attach(io: image_io, filename: file_name)
 

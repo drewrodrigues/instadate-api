@@ -1,3 +1,19 @@
 require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - bin/**/*
+    - config/**/*
+    - db/**/*
+    - Rakefile
+    - spec/factories.rb
+    - spec/spec_helper.rb
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Style/Documentation:
   Enabled: false

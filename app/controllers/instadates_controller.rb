@@ -18,7 +18,8 @@ class InstadatesController < ApplicationController
     if @instadate.save
       render @instadate
     else
-      render json: @instadate.errors.full_messages, status: :unprocessable_entity
+      render json: @instadate.errors.full_messages,
+             status: :unprocessable_entity
     end
   end
 
@@ -29,7 +30,8 @@ class InstadatesController < ApplicationController
     if @instadate.update(instadate_params)
       render :show, status: :ok, location: @instadate
     else
-      render json: @instadate.errors.full_messages, status: :unprocessable_entity
+      render json: @instadate.errors.full_messages,
+             status: :unprocessable_entity
     end
   end
 
@@ -41,12 +43,10 @@ class InstadatesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_instadate
     @instadate = Instadate.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def instadate_params
     params.require(:instadate).permit(
       :activity,

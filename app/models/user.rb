@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -21,12 +20,6 @@
 #  longitude       :float            not null
 #  city            :string           not null
 #
-# Indexes
-#
-#  index_users_on_city       (city)
-#  index_users_on_latitude   (latitude)
-#  index_users_on_longitude  (longitude)
-#
 
 class User < ApplicationRecord
   extend Geocoder::Model::ActiveRecord
@@ -38,11 +31,14 @@ class User < ApplicationRecord
     Instadate.includes(:creator)
              .where.not(users: { id: id }) # not my created date
              .where(users: { sex: interested_in }) # I'm interested in them
-             .where('? = ANY(users.interested_in)', sex) # they're interested in me
+             .where('? = ANY(users.interested_in)', sex) # them interested in me
   end
 
   def conversations
-    Conversation.where('accepting_user_id = :id OR requesting_user_id = :id', id: id)
+    Conversation.where(
+      'accepting_user_id = :id OR requesting_user_id = :id',
+      id: id
+    )
   end
 
   def pending_sparks
@@ -86,9 +82,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }
 
   reverse_geocoded_by :latitude, :longitude do |obj, results|
-    if geo = results.first
-      obj.city = geo.city
-    end
+    geo = results.first
+    geo && obj.city = geo.city
   end
   after_validation :reverse_geocode
 

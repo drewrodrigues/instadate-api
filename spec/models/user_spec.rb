@@ -21,12 +21,6 @@
 #  longitude       :float            not null
 #  city            :string           not null
 #
-# Indexes
-#
-#  index_users_on_city       (city)
-#  index_users_on_latitude   (latitude)
-#  index_users_on_longitude  (longitude)
-#
 
 require 'rails_helper'
 
@@ -82,7 +76,7 @@ RSpec.describe User, type: :model do
             woman = create(:user, sex: 'woman', interested_in: ['man'])
             woman2 = create(:user, sex: 'woman', interested_in: ['woman'])
             date = create(:instadate, creator: woman)
-            date2 = create(:instadate, creator: woman2)
+            create(:instadate, creator: woman2)
 
             man = create(:user, sex: 'man', interested_in: %w[man woman])
 
@@ -93,7 +87,7 @@ RSpec.describe User, type: :model do
 
       it 'doesn\'t return the user\'s created date' do
         user = create(:user)
-        date = create(:instadate, creator: user)
+        create(:instadate, creator: user)
 
         expect(user.available_dates).to be_empty
       end
@@ -173,7 +167,11 @@ RSpec.describe User, type: :model do
       end
 
       it 'is invalid with other other outcomes' do
-        user = build(:user, interested_in: User::INTERESTED_IN_OPTIONS + ['other'])
+        user = build(
+          :user,
+          interested_in: User::INTERESTED_IN_OPTIONS + ['other']
+        )
+        puts 'something'
         expect(user).to be_invalid
       end
     end

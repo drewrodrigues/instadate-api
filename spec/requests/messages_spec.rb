@@ -6,8 +6,15 @@ RSpec.describe 'Message requests', type: :request do
   before do
     user = build_stubbed(:user)
     ApplicationController.any_instance.stub(:current_user) { user }
-    message = build(:message, user_id: 200, conversation_id: 250, body: 'Message')
-    allow_any_instance_of(User).to receive_message_chain('messages.build') { message }
+    message = build(
+      :message,
+      user_id: 200,
+      conversation_id: 250,
+      body: 'Message'
+    )
+    allow_any_instance_of(User).to(
+      receive_message_chain('messages.build') { message }
+    )
   end
 
   describe 'POST /messages' do
