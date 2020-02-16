@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
 
   # GET /conversations
   def index
-    @conversations = current_user.conversations.all
+    @conversations = current_user.conversations.includes(:messages).all
   end
 
   # GET /conversations/1

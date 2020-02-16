@@ -21,6 +21,10 @@ class Conversation < ApplicationRecord
     messages.count
   end
 
+  def last_message
+    messages.last
+  end
+
   def other_user(current_user)
     current_user == accepting_user ? requesting_user : accepting_user
   end

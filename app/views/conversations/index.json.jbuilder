@@ -18,3 +18,12 @@ json.users do
   end
   json.array! users, partial: 'users/user', as: :user
 end
+
+# to preview last message
+last_messages = []
+@conversations.each do |conversation|
+  unless conversation.messages.length.zero?
+    last_messages << conversation.last_message
+  end
+end
+json.messages(last_messages)
