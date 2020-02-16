@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
     if @message.save
       render :show
     else
-      render json: { 'errors' => @message.errors }
+      render json: { 'errors' => @message.errors }, status: :unprocessable_entity
     end
   end
 
